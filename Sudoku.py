@@ -65,12 +65,12 @@ class Sudoku():
          
 #Seteo el numero ingresado.
     def set_number(self, number, row, column):
-        self.board_temporal = copy.deepcopy(self.board) #Una deepcopy para hacer una copia profunda de una lista.
-        self.board[row][column] = str(number)
-        if (not self.validate_board() or (row, column) in self.predefined_numbers):
-            self.board = self.board_temporal
-            return "No puede ingresar un numero en esa coordenada!"
-        return self.get_board()
+            self.board_temp = copy.deepcopy(self.board)
+            self.board[row][column] = str(number)
+            if (not self.validate_board() or (row, column) in self.predefined_numbers):
+                self.board = self.board_temp
+                return "No puede ingresar un numero en esa coordenada!"
+            return self.get_board()
 
 #Valida si aun hay espacios libres en el board.
     def win(self):

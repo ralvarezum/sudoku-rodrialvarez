@@ -21,6 +21,13 @@ class Interface ():
 #Check de los ingresos del user.
     def check_user_inputs(self, user_number, user_row, user_column):
         try:
+            if int(user_row) > self.size or int(user_row) < 1:
+                return False
+            elif int(user_column) > self.size or int(user_column) < 1:
+                return False
+            elif user_number != "x":
+                if int(user_number) > 0 and int(user_number) < self.size+1:
+                    return True
             if user_column > self.size or user_row > self.size or user_column < 1 or user_row < 1:
                 return "\nHa ingresado un numero,fila o columna invalido/a!"
             if user_number < 1 or user_number > self.size:
@@ -28,14 +35,14 @@ class Interface ():
             else:
                 return True
         except Exception:
-            return "\nHa ingresado un numero,fila o columna invalido/a!"
+            return False
 
 
 #Ingreso de numero, fila y columna. Si son invalidos, se le advierte al user.
     def user_inputs(self):
         self.u_number = input("Numero: ")
         self.u_row = input("Fila: ")
-        self.u_column = input("Columna: \n")
+        self.u_column = input("Columna: ")
 
         if self.check_user_inputs(self.u_number, self.u_row, self.u_column):
             return self.game.set_number(self.u_number, int(self.u_row)-1, int(self.u_column)-1)
