@@ -40,7 +40,7 @@ class Interface ():
 #Jugando...hasta que gane el Sudoku.
     def play(self):
         self.start()
-        print("\nSUDOKU GAME\n")
+        print("\n------SUDOKU GAME------\n")
         print(self.game.get_board())
         while not self.game.win():
             print(self.user_inputs())

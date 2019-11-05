@@ -1,0 +1,14 @@
+#PYTHON CODE
+http://code.activestate.com/recipes/578140-super-simple-sudoku-solver-in-python-source-code/
+https://medium.com/datadriveninvestor/solving-sudoku-in-seconds-or-less-with-python-1c21f10117d6
+
+#BOARD PRINT
+https://stackoverflow.com/questions/28282717/display-2d-sudoku-board-in-python
+
+#LISTAS ANIDADAS 
+https://www.snakify.org/es/lessons/two_dimensional_lists_arrays/
+http://docs.python.org.ar/tutorial/3/datastructures.html
+
+#MATRIZ TRANSPUESTA
+http://www.forosdelweb.com/f130/como-hacer-transpuesta-matriz-851460/
+https://laesporadelhongo.com/wp-content/cache/page_enhanced/laesporadelhongo.com/transpuesta-de-una-matriz-con-python/_index.html_gzip
