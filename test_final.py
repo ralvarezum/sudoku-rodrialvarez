@@ -169,7 +169,7 @@ class TestInterfaceSudoku(unittest.TestCase):
 class TestSudoku(unittest.TestCase):
 
     def setUp(self):
-        self.sudoku9 = Sudoku([["5", "3", "x", "x", "7", "x", "x", "x", "x"],
+        self.sudoku_9 = Sudoku([["5", "3", "x", "x", "7", "x", "x", "x", "x"],
                                ["6", "x", "x", "x", "9", "5", "x", "x", "x"],
                                ["x", "9", "8", "x", "x", "x", "x", "6", "x"],
                                ["8", "x", "x", "x", "6", "x", "x", "x", "3"],
@@ -181,7 +181,7 @@ class TestSudoku(unittest.TestCase):
 
 
     def test_nice_board_nine_9(self):
-        self.assertTrue(self.sudoku9.validate_board())
+        self.assertTrue(self.sudoku_9.validate_board())
 
     @parameterized.expand([
         (7, 0, 2),
@@ -213,7 +213,7 @@ class TestSudoku(unittest.TestCase):
         (8, 8, 6)
     ])
     def test_wrong_numbers_nine_9(self, number, row, column):
-        result = self.sudoku9.set_number(number, row, column)
+        result = self.sudoku_9.set_number(number, row, column)
         self.assertEqual(result,"No puede ingresar un numero en esa coordenada!")
 
     @parameterized.expand([
@@ -275,7 +275,7 @@ class TestSudoku(unittest.TestCase):
         (1, 8, 6),
     ])
     def test_nice_put_val_nine_9(self, number, row, column):
-        result = self.sudoku9.set_number(number, row, column)
+        result = self.sudoku_9.set_number(number, row, column)
         self.assertNotEqual(result,"No puede ingresar un numero en esa coordenada!")
 
     @parameterized.expand([
@@ -290,10 +290,8 @@ class TestSudoku(unittest.TestCase):
         ("8", 8, 1),
         ])
     def test_valid_rows_nine_9(self, number, row, column):
-
-        self.sudoku9.board[row][column] = number
-
-        self.assertFalse(self.sudoku9.validate_rows(self.sudoku9.board))
+        self.sudoku_9.board[row][column] = number
+        self.assertFalse(self.sudoku_9.validate_rows(self.sudoku_9.board))
 
     @parameterized.expand([
         ("7", 0, 2),
@@ -325,11 +323,11 @@ class TestSudoku(unittest.TestCase):
         ("8", 8, 6),
     ])
     def test_valid_board_nine_9(self, number, row, column):
-        self.sudoku9.board[row][column] = number
-        self.assertFalse(self.sudoku9.validate_board())
+        self.sudoku_9.board[row][column] = number
+        self.assertFalse(self.sudoku_9.validate_board())
 
     def test_not_winning_nine_9(self):
-        self.assertFalse(self.sudoku9.win())
+        self.assertFalse(self.sudoku_9.win())
 
     def test_winning_nine_9(self):
         sudoku = Sudoku([["5", "3", "4", "6", "7", "8", "9", "1", "2"],
