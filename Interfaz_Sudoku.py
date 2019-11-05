@@ -5,7 +5,7 @@ import time
 class Interface ():
 
 #Si el jugador lo desea, puede preguntar al iniciar la partida que es Sudoku.
-
+    """
     def help_sudoku(self):
         self.help = ""
         while self.help != "1" and self.help != "2":
@@ -24,20 +24,14 @@ class Interface ():
             time.sleep(5)
             print("\nMuy bien! Que comience el juego!")
             print("\nSUDOKU GAME") 
-
-
-#Obtener tamaño del board.
-    def get_size(self):
-        self.size = 0
-        while self.size != "4" and self.size != "9":
-            self.size = input("\nIngrese el tamaño del tablero. Las opciones son 4 o 9: ")
-            if self.size != "4" and self.size != "9":
-                print("Ese tamaño no esta disponible. Las opciones son 4 o 9. Por favor, vuelva a intentar! \n\n")
-
+    """
+    
 #Inicializacion del juego.
     def start(self):
+        self.size = 9
+        """
         self.help_sudoku()
-        self.get_size()
+        """
         self.size = int(self.size)
         self.list = api(self.size)
         self.game = Sudoku(self.list)
