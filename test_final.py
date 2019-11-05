@@ -92,9 +92,9 @@ class TestInterfaceSudoku(unittest.TestCase):
         ("6", "9", "6"),
         ("1", "9", "7"),
     ])
-    def test_ask_val_rows_nine_9(self, numero, fila, columna):
+    def test_ask_val_rows_nine_9(self, number, row, column):
         mock = MagicMock()
-        mock.side_effect = [numero, fila, columna]
+        mock.side_effect = [number, row, column]
         with patch("builtins.input", new=mock):
             result = self.user_nine_9.user_inputs()
         self.assertNotEqual(result, "\nHa ingresado un numero,fila o columna invalido/a!")
@@ -212,8 +212,8 @@ class TestSudoku(unittest.TestCase):
         (9, 8, 3),
         (8, 8, 6)
     ])
-    def test_wrong_numbers_nine_9(self, numero, fila, columna):
-        result = self.sudoku9.set_number(numero, fila, columna)
+    def test_wrong_numbers_nine_9(self, number, row, column):
+        result = self.sudoku9.set_number(number, row, column)
         self.assertEqual(result,"No puede ingresar un numero en esa coordenada!")
 
     @parameterized.expand([
@@ -274,8 +274,8 @@ class TestSudoku(unittest.TestCase):
         ("x", 8, 6),
         (1, 8, 6),
     ])
-    def test_nice_put_val_nine_9(self, numero, fila, columna):
-        result = self.sudoku9.set_number(numero, fila, columna)
+    def test_nice_put_val_nine_9(self, number, row, column):
+        result = self.sudoku9.set_number(number, row, column)
         self.assertNotEqual(result,"No puede ingresar un numero en esa coordenada!")
 
     @parameterized.expand([
@@ -289,9 +289,9 @@ class TestSudoku(unittest.TestCase):
         ("9", 7, 0),
         ("8", 8, 1),
         ])
-    def test_valid_rows_nine_9(self, numero, fila, columna):
+    def test_valid_rows_nine_9(self, number, row, column):
 
-        self.sudoku9.board[fila][columna] = numero
+        self.sudoku9.board[row][column] = number
 
         self.assertFalse(self.sudoku9.validate_rows(self.sudoku9.board))
 
@@ -324,8 +324,8 @@ class TestSudoku(unittest.TestCase):
         ("9", 8, 3),
         ("8", 8, 6),
     ])
-    def test_valid_board_nine_9(self, numero, fila, columna):
-        self.sudoku9.board[fila][columna] = numero
+    def test_valid_board_nine_9(self, number, row, column):
+        self.sudoku9.board[row][column] = number
         self.assertFalse(self.sudoku9.validate_board())
 
     def test_not_winning_nine_9(self):
