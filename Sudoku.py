@@ -58,22 +58,11 @@ class Sudoku():
 
 #Imprime el board.
     def get_board(self):
-        self.printed_board = ""
-        for rows in range(self.size):
-            if rows == self.quadrant or rows == self.quadrant*2:
-                for iteration in range(self.size):
-                    self.printed_board += "--"
-                    if iteration == self.quadrant-1 or iteration == self.quadrant*2-1:
-                        self.printed_board += "++-"
-                if iteration == self.quadrant-1 or iteration == self.quadrant*2-1:
-                    self.printed_board = self.printed_board[:-3]
-                self.printed_board += "\n"
-            for columns in range(self.size):
-                if columns == self.quadrant or columns == self.quadrant*2:
-                    self.printed_board += "|| "
-                self.printed_board += self.board[rows][columns] + " "
-            self.printed_board += "\n"
-        return self.printed_board
+        board_prt = ''
+        for row in self.board:
+            board_prt += ' | '.join(row)
+            board_prt += '\n'      
+        return board_prt 
 
 #Seteo el numero ingresado. Se crea un duplicado del board original en caso de que el numero ingresado no cumpla con las condiciones. Si no se cumple, el board duplicado se iguala al board original.
     def set_number(self, number, row, column):
