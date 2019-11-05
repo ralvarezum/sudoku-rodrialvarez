@@ -1,37 +1,11 @@
 from api import api
 from Sudoku import Sudoku
-import time
 
 class Interface ():
-
-#Si el jugador lo desea, puede preguntar al iniciar la partida que es Sudoku.
-    """
-    def help_sudoku(self):
-        self.help = ""
-        while self.help != "1" and self.help != "2":
-            self.help = input("\nDeseas saber que es Sudoku? Ingrese 1(SI) o 2(NO)\n").lower()
-            if self.help != "1" and self.help != "2":
-                print("Solo 1 (SI) y 2 (NO) son las opciones disponibles! Vuelva a intentar!\n")
-        if self.help == "1":
-            print("\nLos Sudokus se suelen estructurar en cuadrículas divididas en cajas de 3x3 o 2x2 celdas en las que hay algunos números escritos de antemano. Para jugar, simplemente debes rellenar las celdas en blanco de tal forma que cada fila, columna y caja de 3x3 no tenga números repetidos.")
-            time.sleep(3)
-            print("\nGenerando Sudoku...")
-            time.sleep(5)
-            print("\nMuy bien! Que comience el juego!")
-            print("\nSUDOKU GAME")
-        elif self.help == "2":
-            print("\nGenerando Sudoku...")
-            time.sleep(5)
-            print("\nMuy bien! Que comience el juego!")
-            print("\nSUDOKU GAME") 
-    """
     
 #Inicializacion del juego.
     def start(self):
         self.size = 9
-        """
-        self.help_sudoku()
-        """
         self.size = int(self.size)
         self.list = api(self.size)
         self.game = Sudoku(self.list)
@@ -66,6 +40,7 @@ class Interface ():
 #Jugando...hasta que gane el Sudoku.
     def play(self):
         self.start()
+        print("\nSUDOKU GAME\n")
         print(self.game.get_board())
         while not self.game.win():
             print(self.user_inputs())

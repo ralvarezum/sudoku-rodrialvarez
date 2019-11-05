@@ -14,9 +14,9 @@ from Sudoku import Sudoku
 
 
 class TestInterfaceSudoku(unittest.TestCase):
-
     def setUp(self):
-        list_sudoku_9 = [
+
+        lista9 = [
                     ["5", "3", "x", "x", "7", "x", "x", "x", "x"],
                     ["6", "x", "x", "x", "9", "5", "x", "x", "x"],
                     ["x", "9", "8", "x", "x", "x", "x", "6", "x"],
@@ -27,10 +27,16 @@ class TestInterfaceSudoku(unittest.TestCase):
                     ["x", "x", "x", "4", "1", "9", "x", "x", "5"],
                     ["x", "x", "x", "x", "8", "x", "x", "7", "9"]]
 
-        self.user_9 = Interface()
+        self.user9 = Interface()
         mock = MagicMock()
         mock.side_effect = ["9", "1"]
-        with patch("Interfaz_Sudoku.api", return_value=list_sudoku_9), patch("builtins.input",new=mock):self.user_9.start()
+        with patch("Interfaz_Sudoku.api",
+                   return_value=lista9
+                   ), patch(
+                   "builtins.input",
+                   new=mock
+                   ):
+            self.user9.start()
 
     @parameterized.expand([
         ("4", "1", "3"),
@@ -86,15 +92,16 @@ class TestInterfaceSudoku(unittest.TestCase):
         ("6", "9", "6"),
         ("1", "9", "7"),
     ])
-    def test_get_good_number_row_column_9(self, user_number, user_row, user_column):
+    def test_pedir_valores_fila_bien9(self, numero, fila, columna):
         mock = MagicMock()
-        mock.side_effect = [user_number, user_row, user_column]
+        mock.side_effect = [numero, fila, columna]
         with patch("builtins.input", new=mock):
-            result = self.user_9.user_inputs()
+            result = self.user9.user_inputs()
         self.assertNotEqual(result, "\nHa ingresado un numero,fila o columna invalido/a!")
 
+
     @unittest.mock.patch("sys.stdout", new_callable=io.StringIO)
-    def test_play_win_9(self, mock_stdout):
+    def test_play_ganador9(self, mock_stdout):
 
         mock = MagicMock()
         mock.side_effect = ["4", "1", "3",
@@ -151,7 +158,7 @@ class TestInterfaceSudoku(unittest.TestCase):
                             "1", "9", "7"]
         with patch("Interfaz_Sudoku.Interface.start",
                    return_value=None), patch("builtins.input", new=mock):
-            self.user_9.play()
+            self.user9.play()
         self.assertEqual(mock_stdout.getvalue()[-11:], "\n\nYOU WIN!\n")
 
 """//////////SUDOKU////////""""""//////////SUDOKU////////""""""//////////SUDOKU////////""""""//////////SUDOKU////////"""
@@ -174,7 +181,7 @@ class TestSudoku(unittest.TestCase):
                                ["x", "x", "x", "x", "8", "x", "x", "7", "9"]])
 
 
-    def test_correct_board_9(self):
+    def test_Sudoku_9_tablero_correcto(self):
         self.assertTrue(self.sudoku9.validate_board())
 
     @parameterized.expand([
@@ -206,9 +213,14 @@ class TestSudoku(unittest.TestCase):
         (9, 8, 3),
         (8, 8, 6)
     ])
-    def test_wrong_numbers_9(self, user_number, user_row, user_column):
-        result = self.sudoku9.set_number(user_number, user_row, user_column)
-        self.assertEqual(result,"No puede ingresar un numero en esa coordenada!")
+    def test_Sudoku_9_poner_numeros_incorrectos(self, numero, fila, columna):
+
+        result = self.sudoku9.set_number(numero, fila, columna)
+
+        self.assertEqual(
+            result,
+            "No puede ingresar un numero en esa coordenada!"
+        )
 
     @parameterized.expand([
         (4, 0, 2),
@@ -268,9 +280,12 @@ class TestSudoku(unittest.TestCase):
         ("x", 8, 6),
         (1, 8, 6),
     ])
-    def test_good_numbers_9(self, user_number, user_row, user_column):
-        result = self.sudoku9.set_number(user_number, user_row, user_column)
-        self.assertNotEqual(result,"No puede ingresar un numero en esa coordenada!")
+    def test_Sudoku_9_poner_valor_correcto(self, numero, fila, columna):
+        result = self.sudoku9.set_number(numero, fila, columna)
+        self.assertNotEqual(
+            result,
+            "No puede ingresar un numero en esa coordenada!"
+        )
 
     @parameterized.expand([
         ("7", 0, 2),
@@ -283,8 +298,10 @@ class TestSudoku(unittest.TestCase):
         ("9", 7, 0),
         ("8", 8, 1),
         ])
-    def test_validate_board_rows_9(self, user_number, user_row, user_column):
-        self.sudoku9.board[user_row][user_column] = user_number
+    def test_Sudoku_9_metodo_validar_Filas(self, numero, fila, columna):
+
+        self.sudoku9.board[fila][columna] = numero
+
         self.assertFalse(self.sudoku9.validate_rows(self.sudoku9.board))
 
     @parameterized.expand([
@@ -316,14 +333,14 @@ class TestSudoku(unittest.TestCase):
         ("9", 8, 3),
         ("8", 8, 6),
     ])
-    def test_validate_board_9(self, user_number, user_row, user_column):
-        self.sudoku9.board[user_row][user_column] = user_number
+    def test_Sudoku_9_metodo_validar(self, numero, fila, columna):
+        self.sudoku9.board[fila][columna] = numero
         self.assertFalse(self.sudoku9.validate_board())
 
-    def test_not_winning_9(self):
+    def test_Sudoku_9_todavia_no_gana(self):
         self.assertFalse(self.sudoku9.win())
 
-    def test_winning_9(self):
+    def test_Sudoku_9_gano(self):
         sudoku = Sudoku([["5", "3", "4", "6", "7", "8", "9", "1", "2"],
                          ["6", "7", "2", "1", "9", "5", "3", "4", "8"],
                          ["1", "9", "8", "3", "4", "2", "5", "6", "7"],
@@ -333,6 +350,7 @@ class TestSudoku(unittest.TestCase):
                          ["9", "6", "1", "5", "3", "7", "2", "8", "4"],
                          ["2", "8", "7", "4", "1", "9", "6", "3", "5"],
                          ["3", "4", "5", "2", "8", "6", "1", "7", "9"]])
+
         self.assertTrue(sudoku.win())
 
 
