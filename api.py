@@ -10,4 +10,3 @@ def api(size):
         list[item["y"]][item["x"]] = str(item["value"])
 
     return list
-    """API"""
