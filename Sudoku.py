@@ -75,7 +75,7 @@ class Sudoku():
             self.printed_board += "\n"
         return self.printed_board
 
-#Seteo el numero ingresado. Se crea un duplicado del board original en caso de que el numero ingresado no cumpla con las condiciones. Si no se cumple, el board duplicado se iguala al board original.
+#Seteo el numero ingresado. Se crea un duplicado del board original, en caso de que el numero ingresado no cumpla con las condiciones. Si no se cumple, el board duplicado se iguala al board original.
     def set_number(self, number, row, column):
         self.board_temp = copy.deepcopy(self.board)
         self.board[row][column] = str(number)
