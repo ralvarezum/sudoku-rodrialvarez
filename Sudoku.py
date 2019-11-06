@@ -18,6 +18,14 @@ class Sudoku():
             for columns in range(len(self.board[rows])):
                 if self.board[rows][columns] != "x":
                     self.predefined_numbers.append([rows, columns])
+                    
+#Imprime el board.
+    def get_board(self):
+        board_prt = ''
+        for row in self.board:
+            board_prt += ' | '.join(row)
+            board_prt += '\n'      
+        return board_prt
 
 #Valido si alguno de los numeros se repite en las filas.
     def validate_rows(self, table):
@@ -52,16 +60,7 @@ class Sudoku():
                 self.quadrants_list.append(self.zed_list)
         if not self.validate_rows(self.quadrants_list):
             return False
-        return True
-
-#Imprime el board.
-    def get_board(self):
-        board_prt = ''
-        for row in self.board:
-            board_prt += ' | '.join(row)
-            board_prt += '\n'      
-        return board_prt
-        
+        return True        
          
 #Seteo el numero ingresado.
     def set_number(self, number, row, column):

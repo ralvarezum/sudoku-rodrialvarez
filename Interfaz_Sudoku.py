@@ -28,9 +28,9 @@ class Interface ():
             elif user_number != "x":
                 if int(user_number) > 0 and int(user_number) < self.size+1:
                     return True
-            if user_column > self.size or user_row > self.size or user_column < 1 or user_row < 1:
+            elif user_column > self.size or user_row > self.size or user_column < 1 or user_row < 1:
                 return "\nHa ingresado un numero,fila o columna invalido/a!"
-            if user_number < 1 or user_number > self.size:
+            elif user_number < 1 or user_number > self.size:
                 return "\nHa ingresado un numero,fila o columna invalido/a!"
             else:
                 return True
