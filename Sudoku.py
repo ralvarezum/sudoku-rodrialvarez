@@ -75,8 +75,8 @@ class Sudoku():
 #Valida si aun hay espacios libres en el board.
     def end_game(self):
         count = 0
-        for rows in range(9):
-            for columns in range(9):
+        for rows in range(self.size):
+            for columns in range(self.size):
                 if self.board[rows][columns] == "x":
                     count += 1
         if count < 1:
