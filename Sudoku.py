@@ -9,6 +9,7 @@ class Sudoku():
         self.predefined_numbers = []
         self.transposed_table = []
         self.quadrants_list = []
+        self.column = []
         self.quadrant = int(math.sqrt(self.size))
         self.printed_board = ""
 
@@ -18,7 +19,7 @@ class Sudoku():
             for columns in range(len(self.board[rows])):
                 if self.board[rows][columns] != "x":
                     self.predefined_numbers.append([rows, columns])
-                    
+
 #Imprime el board.
     def get_board(self):
         board_prt = ''
@@ -31,18 +32,17 @@ class Sudoku():
     def validate_rows(self, table):
         for row in table:
             for iteration in range(self.size):
-                self.element = row.pop(iteration) #.pop quita el item en la posicion de la lista y lo devuelve.
-                if self.element in row and self.element != "x":
+                self.item = row.pop(iteration) #.pop quita el item en la posicion de la lista y lo devuelve.
+                if self.item in row and self.item != "x":
                     return False
-                row.insert(iteration, self.element)
+                row.insert(iteration, self.item)
         return True
 
-#Valido el board. Valido si hay numeros repetidos en las columnas. Valido si hay algun numero repetido en los cuadrantes 3x3. 
+#Valido el board. 
     def validate_board(self):
         if not self.validate_rows(self.board):
             return False
 
-        self.transposed_table = []
         for rows in range(self.size):
             self.column = []
             for columns in range(self.size):
@@ -61,7 +61,8 @@ class Sudoku():
         if not self.validate_rows(self.quadrants_list):
             return False
         return True        
-         
+
+
 #Seteo el numero ingresado.
     def set_number(self, number, row, column):
             self.board_temp = copy.deepcopy(self.board)
@@ -72,9 +73,10 @@ class Sudoku():
             return self.get_board()
 
 #Valida si aun hay espacios libres en el board.
-    def win(self):
+    def end_game(self):
         for iteration in range(self.size):
             if ("x" in self.board[iteration]):
                 return False
+        #print "endgame/win"
         return True
         

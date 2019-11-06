@@ -327,7 +327,7 @@ class TestSudoku(unittest.TestCase):
         self.assertFalse(self.sudoku_9.validate_board())
 
     def test_not_winning_nine_9(self):
-        self.assertFalse(self.sudoku_9.win())
+        self.assertFalse(self.sudoku_9.end_game())
 
     def test_winning_nine_9(self):
         sudoku = Sudoku([["5", "3", "4", "6", "7", "8", "9", "1", "2"],
@@ -339,7 +339,7 @@ class TestSudoku(unittest.TestCase):
                          ["9", "6", "1", "5", "3", "7", "2", "8", "4"],
                          ["2", "8", "7", "4", "1", "9", "6", "3", "5"],
                          ["3", "4", "5", "2", "8", "6", "1", "7", "9"]])
-        self.assertTrue(sudoku.win())
+        self.assertTrue(sudoku.end_game())
 
 """//////////API////////""""""//////////API////////""""""//////////API////////""""""//////////API////////"""
 """//////////API////////""""""//////////API////////""""""//////////API////////""""""//////////API////////"""

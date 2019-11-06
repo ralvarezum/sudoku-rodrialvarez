@@ -13,7 +13,7 @@ class Interface ():
 
     def help_sudoku(self):
         print("Que es Sudoku?\n")
-        print("El objetivo del sudoku es rellenar una cuadrícula de 9 × 9 celdas (81 casillas) dividida en subcuadrículas de 3 × 3 (también llamadas cajas o regiones) con las cifras del 1 al 9 partiendo de algunos números ya dispuestos en algunas de las celdas. \n")
+        print("El objetivo del Sudoku es rellenar una cuadrícula de 9 × 9 celdas (81 casillas) dividida en subcuadrículas de 3 × 3 (también llamadas cajas o regiones) con las cifras del 1 al 9 partiendo de algunos números ya dispuestos en algunas de las celdas. \n")
         print("Generando tablero...\n")
         time.sleep(5)
         print("Que comience el juego! ")
@@ -57,7 +57,7 @@ class Interface ():
         self.start()
         print("\n------SUDOKU GAME------\n")
         print(self.game.get_board())
-        while not self.game.win():
+        while not self.game.end_game():
             print(self.user_inputs())
         print("\nYOU WIN!")
 
