@@ -25,7 +25,7 @@ class Sudoku():
         board_prt = ''
         for row in self.board:
             board_prt += ' | '.join(row)
-            board_prt += '\n'      
+            board_prt += '\n'    
         return board_prt
 
 #Valido si alguno de los numeros se repite en las filas.
