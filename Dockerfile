@@ -1,6 +1,6 @@
 FROM python:3
 
-RUN git clone https://github.com/ralvarezum/sudoku-rodrialvarez
+RUN git clone https://github.com/ralvarezum/sudoku-rodrialvarez.git
 WORKDIR /sudoku-rodrialvarez
 
 RUN pip install -r requirements.txt
