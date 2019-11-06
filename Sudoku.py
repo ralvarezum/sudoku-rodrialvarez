@@ -67,16 +67,20 @@ class Sudoku():
     def set_number(self, number, row, column):
             self.board_temp = copy.deepcopy(self.board)
             self.board[row][column] = str(number)
-            if (not self.validate_board() or (row, column) in self.predefined_numbers):
+            if ((row, column) in self.predefined_numbers or not self.validate_board()):
                 self.board = self.board_temp
                 return "No puede ingresar un numero en esa coordenada!"
             return self.get_board()
 
 #Valida si aun hay espacios libres en el board.
     def end_game(self):
-        for iteration in range(self.size):
-            if ("x" in self.board[iteration]):
-                return False
-        #print "endgame/win"
-        return True
+        count = 0
+        for rows in range(9):
+            for columns in range(9):
+                if self.board[rows][columns] == "x":
+                    count += 1
+        if count < 1:
+            return True
+        else:
+            return False
         
