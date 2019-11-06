@@ -16,9 +16,10 @@ from Sudoku import Sudoku
 class TestInterfaceSudoku(unittest.TestCase):
     def setUp(self):
 
+        self.user_9 = Interface()
         list_nine_9 = [
                     ["5", "3", "x", "x", "7", "x", "x", "x", "x"],
-                    ["6", "x", "x", "1", "9", "5", "x", "x", "x"],
+                    ["6", "x", "x", "x", "9", "5", "x", "x", "x"],
                     ["x", "9", "8", "x", "x", "x", "x", "6", "x"],
                     ["8", "x", "x", "x", "6", "x", "x", "x", "3"],
                     ["4", "x", "x", "8", "x", "3", "x", "x", "1"],
@@ -27,16 +28,81 @@ class TestInterfaceSudoku(unittest.TestCase):
                     ["x", "x", "x", "4", "1", "9", "x", "x", "5"],
                     ["x", "x", "x", "x", "8", "x", "x", "7", "9"]]
 
-        self.user_nine_9 = Interface()
+        self.user_9.size = 9
+        self.user_9.level = "1"
+        self.user_9.game = Sudoku(list_nine_9)
+
+    @parameterized.expand([
+        ("y", "4", "6"),
+        ("2", "k", "6"),
+        ("2", "4", "d"),
+        ("@", "4", "6"),
+        ("2", "@", "6"),
+        ("2", "4", "@"),
+        ("!", "4", "@"),
+        ("+", "g", "6"),
+        ("3", "asd", "+"),
+        ("+", "-", "d"),
+        ("hola", "asd", "@"),
+        ("+", "asd", "hola")
+    ])
+
+    def test_put_simbols(self, number, row, column):
+        result = self.user_9.check_user_inputs(number, row, column)
+        self.assertFalse(result)
+
+    @parameterized.expand([
+        ("2", "0", "1"),
+        ("2", "-1", "1"),
+        ("2", "10", "1"),
+        ("2", "100", "1")
+    ])
+    def test_put_wrong_rows(self, number, row, column):
         mock = MagicMock()
-        mock.side_effect = ["9", "1"]
-        with patch("Interfaz_Sudoku.api",
-                   return_value=list_nine_9
-                   ), patch(
-                   "builtins.input",
-                   new=mock
-                   ):
-            self.user_nine_9.start()
+        mock.side_effect = [number, row, column]
+        with patch("builtins.input", new=mock):
+            result = self.user_9.user_inputs()
+        self.assertEqual(result, "\nHa ingresado un numero,fila o columna invalido/a!")
+
+    @parameterized.expand([
+        ("2", "1", "0"),
+        ("2", "1", "-1"),
+        ("2", "1", "10"),
+        ("2", "1", "100")
+    ])
+    def test_put_wrong_columns(self, number, row, column):
+        mock = MagicMock()
+        mock.side_effect = [number, row, column]
+        with patch("builtins.input", new=mock):
+            result = self.user_9.user_inputs()
+        self.assertEqual(result, "\nHa ingresado un numero,fila o columna invalido/a!")
+
+    @parameterized.expand([
+        ("0", "2", "1"),
+        ("-1", "2", "1"),
+        ("10", "2", "1"),
+        ("100", "2", "1")
+    ])
+    def test_put_wrong_numbers(self, number, row, column):
+        mock = MagicMock()
+        mock.side_effect = [number, row, column]
+        with patch("builtins.input", new=mock):
+            result = self.user_9.user_inputs()
+        self.assertEqual(result, "\nHa ingresado un numero,fila o columna invalido/a!")
+
+    @parameterized.expand([
+        ("2", "2", "2"),
+        ("7", "2", "2"),
+        ("1", "2", "1"),
+        ("4", "1", "3")
+
+    ])
+    def test_put_correct_numbers(self, number, row, column):
+        mock = MagicMock()
+        mock.side_effect = [number, row, column]
+        with patch("builtins.input", new=mock):
+            result = self.user_9.user_inputs()
+        self.assertNotEqual(result, "\nHa ingresado un numero,fila o columna invalido/a!")
 
     @parameterized.expand([
         ("4", "1", "3"),
@@ -96,7 +162,7 @@ class TestInterfaceSudoku(unittest.TestCase):
         mock = MagicMock()
         mock.side_effect = [number, row, column]
         with patch("builtins.input", new=mock):
-            result = self.user_nine_9.user_inputs()
+            result = self.user_9.user_inputs()
         self.assertNotEqual(result, "\nHa ingresado un numero,fila o columna invalido/a!")
 
     @unittest.mock.patch("sys.stdout", new_callable=io.StringIO)
@@ -157,7 +223,7 @@ class TestInterfaceSudoku(unittest.TestCase):
                             "1", "9", "7"]
         with patch("Interfaz_Sudoku.Interface.start",
                    return_value=None), patch("builtins.input", new=mock):
-            self.user_nine_9.play()
+            self.user_9.play()
         self.assertEqual(mock_stdout.getvalue()[-11:], "\n\nYOU WIN!\n")
 
 """//////////SUDOKU////////""""""//////////SUDOKU////////""""""//////////SUDOKU////////""""""//////////SUDOKU////////"""
