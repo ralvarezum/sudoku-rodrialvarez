@@ -18,12 +18,6 @@ class Interface ():
         time.sleep(5)
         print("Que comience el juego! ")
 
-    #Ingreso de numero, fila y columna. Si son invalidos, se le advierte al user.
-    def user_inputs(self):
-        self.u_number = input("Numero: ")
-        self.u_row = input("Fila: ")
-        self.u_column = input("Columna: ")
-        self.validate_user_inputs_put()
 
 #Check de los ingresos del user.
     def check_user_inputs(self, user_number, user_row, user_column):
@@ -32,23 +26,25 @@ class Interface ():
                 return False
             elif int(user_column) > self.size or int(user_column) < 1:
                 return False
-            elif int(user_number) > 0 and int(user_number) < self.size+1 and user_number != "x":
-                return True
-            elif user_column > self.size or user_row > self.size or user_column < 1 or user_row < 1:
-                return False
-            elif user_number < 1 or user_number > self.size:
-                return False
+            elif user_number != "x":
+                if int(user_number) > 0 and int(user_number) < self.size+1:
+                    return True
             else:
                 return True
         except Exception:
             return False
 
-
-    def validate_user_inputs_put(self):
+#Ingreso de numero, fila y columna. Si son invalidos, se le advierte al user.
+    def user_inputs(self):
+        self.u_number = input("Numero: ")
+        self.u_row = input("Fila: ")
+        self.u_column = input("Columna: ")
+       
         if self.check_user_inputs(self.u_number, self.u_row, self.u_column):
             return self.game.set_number(self.u_number, int(self.u_row)-1, int(self.u_column)-1)
         else:
             return "\nHa ingresado un numero,fila o columna invalido/a!"
+
 
 #Jugando...hasta que gane el Sudoku.
     def play(self):
