@@ -7,7 +7,7 @@ class Sudoku():
         self.board = list
         self.size = len(self.board)
         self.predefined_numbers = []
-        self.transposed_table = []
+        self.inverted_row_table = []
         self.quadrants_list = []
         self.column = []
         self.quadrant = int(math.sqrt(self.size))
@@ -47,8 +47,8 @@ class Sudoku():
             self.column = []
             for columns in range(self.size):
                 self.column.append(self.board[columns][rows])
-            self.transposed_table.append(self.column)
-        if not self.validate_rows(self.transposed_table):
+            self.inverted_row_table.append(self.column)
+        if not self.validate_rows(self.inverted_row_table):
             return False
 
         self.quadrants_list = []
