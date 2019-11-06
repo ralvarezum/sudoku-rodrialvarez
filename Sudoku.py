@@ -32,7 +32,7 @@ class Sudoku():
     def validate_rows(self, table):
         for row in table:
             for iteration in range(self.size):
-                self.item = row.pop(iteration) #.pop quita el item en la posicion de la lista y lo devuelve.
+                self.item = row.pop(iteration)
                 if self.item in row and self.item != "x":
                     return False
                 row.insert(iteration, self.item)
