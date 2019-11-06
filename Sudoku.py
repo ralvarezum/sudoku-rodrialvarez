@@ -54,10 +54,10 @@ class Sudoku():
         self.quadrants_list = []
         for rows in range(0, self.size, self.quadrant):
             for columns in range(0, self.size, self.quadrant):
-                self.zed_list = []
+                self.list_temporal = []
                 for iteration in range(self.quadrant):
-                    self.zed_list.extend(self.board[rows+iteration][columns:columns+self.quadrant])
-                self.quadrants_list.append(self.zed_list)
+                    self.list_temporal.extend(self.board[rows+iteration][columns:columns+self.quadrant])
+                self.quadrants_list.append(self.list_temporal)
         if not self.validate_rows(self.quadrants_list):
             return False
         return True        
