@@ -15,7 +15,7 @@ class Sudoku():
                     ["x", "x", "x", "4", "1", "9", "x", "x", "5"],
                     ["x", "x", "x", "x", "8", "x", "x", "7", "9"]]
         self.board = list
-        self.size = len(self.board)
+        self.size = 9
         self.predefined_numbers = []
         self.inverted_row_table = []
         self.quadrants_list = []
@@ -52,7 +52,7 @@ class Sudoku():
     def validate_board(self):
         if not self.validate_rows(self.board):
             return False
-
+#Valido columnas
         for rows in range(self.size):
             self.column = []
             for columns in range(self.size):
@@ -60,7 +60,7 @@ class Sudoku():
             self.inverted_row_table.append(self.column)
         if not self.validate_rows(self.inverted_row_table):
             return False
-
+#Valido quadrantes
         self.quadrants_list = []
         for rows in range(0, self.size, self.quadrant):
             for columns in range(0, self.size, self.quadrant):
