@@ -1,4 +1,3 @@
-from api import api
 from Sudoku import Sudoku
 import time
 
@@ -8,7 +7,7 @@ class Interface ():
     def start(self):
         self.size = 9
         self.size = int(self.size)
-        self.list = api(self.size)
+        self.list = list
         self.game = Sudoku(self.list)
 
     def help_sudoku(self):
