@@ -104,66 +104,6 @@ class TestInterfaceSudoku(unittest.TestCase):
             result = self.user_9.user_inputs()
         self.assertNotEqual(result, "\nHa ingresado un numero,fila o columna invalido/a!")
 
-    @parameterized.expand([
-        ("4", "1", "3"),
-        ("6", "1", "4"),
-        ("8", "1", "6"),
-        ("9", "1", "7"),
-        ("1", "1", "8"),
-        ("2", "1", "9"),
-        ("7", "2", "2"),
-        ("2", "2", "3"),
-        ("1", "2", "4"),
-        ("3", "2", "7"),
-        ("4", "2", "8"),
-        ("8", "2", "9"),
-        ("1", "3", "1"),
-        ("3", "3", "4"),
-        ("4", "3", "5"),
-        ("2", "3", "6"),
-        ("5", "3", "7"),
-        ("7", "3", "9"),
-        ("5", "4", "2"),
-        ("9", "4", "3"),
-        ("7", "4", "4"),
-        ("1", "4", "6"),
-        ("4", "4", "7"),
-        ("2", "4", "8"),
-        ("2", "5", "2"),
-        ("6", "5", "3"),
-        ("5", "5", "5"),
-        ("7", "5", "7"),
-        ("9", "5", "8"),
-        ("1", "6", "2"),
-        ("3", "6", "3"),
-        ("9", "6", "4"),
-        ("4", "6", "6"),
-        ("8", "6", "7"),
-        ("5", "6", "8"),
-        ("9", "7", "1"),
-        ("1", "7", "3"),
-        ("5", "7", "4"),
-        ("3", "7", "5"),
-        ("7", "7", "6"),
-        ("4", "7", "9"),
-        ("2", "8", "1"),
-        ("8", "8", "2"),
-        ("7", "8", "3"),
-        ("6", "8", "7"),
-        ("3", "8", "8"),
-        ("3", "9", "1"),
-        ("4", "9", "2"),
-        ("5", "9", "3"),
-        ("2", "9", "4"),
-        ("6", "9", "6"),
-        ("1", "9", "7"),
-    ])
-    def test_ask_val_rows_nine_9(self, number, row, column):
-        mock = MagicMock()
-        mock.side_effect = [number, row, column]
-        with patch("builtins.input", new=mock):
-            result = self.user_9.user_inputs()
-        self.assertNotEqual(result, "\nHa ingresado un numero,fila o columna invalido/a!")
 
     @unittest.mock.patch("sys.stdout", new_callable=io.StringIO)
     def test_winning_nine_9(self, mock_stdout):
@@ -199,6 +139,15 @@ class TestInterfaceSudoku(unittest.TestCase):
                             "7", "5", "7",
                             "9", "5", "8",
                             "1", "6", "2",
+                            "8", "8", "2",
+                            "7", "8", "3",
+                            "6", "8", "7",
+                            "3", "8", "8",
+                            "3", "9", "1",
+                            "4", "9", "2",
+                            "5", "9", "3",
+                            "2", "9", "4",
+                            "6", "9", "6",
                             "3", "6", "3",
                             "9", "6", "4",
                             "4", "6", "6",
@@ -211,15 +160,6 @@ class TestInterfaceSudoku(unittest.TestCase):
                             "7", "7", "6",
                             "4", "7", "9",
                             "2", "8", "1",
-                            "8", "8", "2",
-                            "7", "8", "3",
-                            "6", "8", "7",
-                            "3", "8", "8",
-                            "3", "9", "1",
-                            "4", "9", "2",
-                            "5", "9", "3",
-                            "2", "9", "4",
-                            "6", "9", "6",
                             "1", "9", "7"]
         with patch("Interfaz_Sudoku.Interface.start",
                    return_value=None), patch("builtins.input", new=mock):
@@ -235,17 +175,17 @@ class TestInterfaceSudoku(unittest.TestCase):
 class TestSudoku(unittest.TestCase):
 
     def setUp(self):
-        self.sudoku_9 = Sudoku([["5", "3", "x", "x", "7", "x", "x", "x", "x"],
-                               ["6", "x", "x", "1", "9", "5", "x", "x", "x"],
-                               ["x", "9", "8", "x", "x", "x", "x", "6", "x"],
-                               ["8", "x", "x", "x", "6", "x", "x", "x", "3"],
-                               ["4", "x", "x", "8", "x", "3", "x", "x", "1"],
-                               ["7", "x", "x", "x", "2", "x", "x", "x", "6"],
-                               ["x", "6", "x", "x", "x", "x", "2", "8", "x"],
-                               ["x", "x", "x", "4", "1", "9", "x", "x", "5"],
-                               ["x", "x", "x", "x", "8", "x", "x", "7", "9"]])
-
-
+        self.sudoku_9 = Sudoku([
+            ["5", "3", "x", "x", "7", "x", "x", "x", "x"],
+            ["6", "x", "x", "1", "9", "5", "x", "x", "x"],
+            ["x", "9", "8", "x", "x", "x", "x", "6", "x"],
+            ["8", "x", "x", "x", "6", "x", "x", "x", "3"],
+            ["4", "x", "x", "8", "x", "3", "x", "x", "1"],
+            ["7", "x", "x", "x", "2", "x", "x", "x", "6"],
+            ["x", "6", "x", "x", "x", "x", "2", "8", "x"],
+            ["x", "x", "x", "4", "1", "9", "x", "x", "5"],
+            ["x", "x", "x", "x", "8", "x", "x", "7", "9"]
+                               ])
     def test_nice_board_nine_9(self):
         self.assertTrue(self.sudoku_9.validate_board())
 
@@ -283,6 +223,11 @@ class TestSudoku(unittest.TestCase):
         self.assertEqual(result,"No puede ingresar un numero en esa coordenada!")
 
     @parameterized.expand([
+        (6, 4, 2),
+        (5, 4, 4),
+        (7, 4, 6),
+        (9, 4, 7),
+        (1, 5, 1),
         (4, 0, 2),
         (6, 0, 3),
         (8, 0, 5),
@@ -297,26 +242,6 @@ class TestSudoku(unittest.TestCase):
         (8, 1, 8),
         (1, 2, 0),
         (3, 2, 3),
-        (4, 2, 4),
-        (2, 2, 5),
-        (5, 2, 6),
-        (7, 2, 8),
-        (5, 3, 1),
-        (9, 3, 2),
-        (7, 3, 3),
-        (1, 3, 5),
-        (4, 3, 6),
-        (2, 3, 7),
-        (2, 4, 1),
-        (6, 4, 2),
-        (5, 4, 4),
-        (7, 4, 6),
-        (9, 4, 7),
-        (1, 5, 1),
-        (3, 5, 2),
-        (9, 5, 3),
-        (4, 5, 5),
-        (8, 5, 6),
         (5, 5, 7),
         (9, 6, 0),
         (1, 6, 2),
@@ -329,37 +254,69 @@ class TestSudoku(unittest.TestCase):
         (7, 7, 2),
         (6, 7, 6),
         (3, 7, 7),
+        (4, 2, 4),
+        (2, 2, 5),
+        (5, 2, 6),
+        (7, 2, 8),
+        (5, 3, 1),
+        (9, 3, 2),
+        (7, 3, 3),
+        (1, 3, 5),
+        (4, 3, 6),
+        (2, 3, 7),
+        (2, 4, 1),
+        (3, 5, 2),
+        (9, 5, 3),
+        (4, 5, 5),
+        (8, 5, 6),
         (3, 8, 0),
         (4, 8, 1),
         (5, 8, 2),
         (2, 8, 3),
         (6, 8, 5),
-        ("x", 8, 2),
-        ("x", 8, 3),
-        ("x", 8, 5),
-        ("x", 8, 6),
         (1, 8, 6),
     ])
-    def test_nice_put_val_nine_9(self, number, row, column):
+    def test_nice_numbers_nine_9(self, number, row, column):
         result = self.sudoku_9.set_number(number, row, column)
         self.assertNotEqual(result,"No puede ingresar un numero en esa coordenada!")
 
     @parameterized.expand([
+        ("7", 5, 6),
+        ("6", 6, 3),
+        ("9", 7, 0),
         ("7", 0, 2),
         ("5", 1, 7),
         ("6", 2, 3),
         ("8", 3, 6),
         ("4", 4, 4),
-        ("7", 5, 6),
-        ("6", 6, 3),
-        ("9", 7, 0),
         ("8", 8, 1),
         ])
     def test_valid_rows_nine_9(self, number, row, column):
         self.sudoku_9.board[row][column] = number
         self.assertFalse(self.sudoku_9.validate_rows(self.sudoku_9.board))
 
+    def test_winning_nine_9(self):
+        sudoku = Sudoku([["5", "3", "4", "6", "7", "8", "9", "1", "2"],
+                         ["6", "7", "2", "1", "9", "5", "3", "4", "8"],
+                         ["1", "9", "8", "3", "4", "2", "5", "6", "7"],
+                         ["8", "5", "9", "7", "6", "1", "4", "2", "3"],
+                         ["4", "2", "6", "8", "5", "3", "7", "9", "1"],
+                         ["7", "1", "3", "9", "2", "4", "8", "5", "6"],
+                         ["9", "6", "1", "5", "3", "7", "2", "8", "4"],
+                         ["2", "8", "7", "4", "1", "9", "6", "3", "5"],
+                         ["3", "4", "5", "2", "8", "6", "1", "7", "9"]])
+        self.assertTrue(sudoku.end_game())
+
+    def test_not_winning_nine_9(self):
+        self.assertFalse(self.sudoku_9.end_game())
+    
     @parameterized.expand([
+        ("8", 7, 2),
+        ("4", 0, 3),
+        ("7", 6, 4),
+        ("9", 0, 5),
+        ("2", 0, 6),
+        ("6", 7, 7),
         ("7", 0, 2),
         ("5", 1, 7),
         ("6", 2, 3),
@@ -371,12 +328,6 @@ class TestSudoku(unittest.TestCase):
         ("8", 8, 1),
         ("5", 8, 0),
         ("3", 8, 1),
-        ("8", 7, 2),
-        ("4", 0, 3),
-        ("7", 6, 4),
-        ("9", 0, 5),
-        ("2", 0, 6),
-        ("6", 7, 7),
         ("9", 0, 8),
         ("3", 2, 0),
         ("9", 0, 3),
@@ -392,20 +343,6 @@ class TestSudoku(unittest.TestCase):
         self.sudoku_9.board[row][column] = number
         self.assertFalse(self.sudoku_9.validate_board())
 
-    def test_not_winning_nine_9(self):
-        self.assertFalse(self.sudoku_9.end_game())
-
-    def test_winning_nine_9(self):
-        sudoku = Sudoku([["5", "3", "4", "6", "7", "8", "9", "1", "2"],
-                         ["6", "7", "2", "1", "9", "5", "3", "4", "8"],
-                         ["1", "9", "8", "3", "4", "2", "5", "6", "7"],
-                         ["8", "5", "9", "7", "6", "1", "4", "2", "3"],
-                         ["4", "2", "6", "8", "5", "3", "7", "9", "1"],
-                         ["7", "1", "3", "9", "2", "4", "8", "5", "6"],
-                         ["9", "6", "1", "5", "3", "7", "2", "8", "4"],
-                         ["2", "8", "7", "4", "1", "9", "6", "3", "5"],
-                         ["3", "4", "5", "2", "8", "6", "1", "7", "9"]])
-        self.assertTrue(sudoku.end_game())
 
 """//////////API////////""""""//////////API////////""""""//////////API////////""""""//////////API////////"""
 """//////////API////////""""""//////////API////////""""""//////////API////////""""""//////////API////////"""
@@ -414,7 +351,7 @@ class TestSudoku(unittest.TestCase):
 
 class TestAPISudoku(unittest.TestCase):
 
-    def test_api_size_9_1(self):
+    def test_api(self):
         mock_response = MagicMock()
         mock_response.json = MagicMock(return_value={
                                 "response": True,
@@ -473,5 +410,6 @@ class TestAPISudoku(unittest.TestCase):
                                ["1", "5", "x", "x", "x", "x", "8", "2", "3"],
                                ["2", "6", "x", "9", "3", "5", "x", "x", "x"]])
 
+                            
 if __name__ == '__main__':
     unittest.main()
